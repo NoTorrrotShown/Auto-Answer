@@ -1,0 +1,35 @@
+// ==UserScript==
+// @name         Auto Click Check Button.
+// @namespace    http://tampermonkey.net/
+// @version      1.1.1.1.1.1.1.1.1.1.1.1.1.1
+// @description  Automatically clicks the check button.
+// @author       NoTorrrotShown
+// @match        *.core.learn.edgenuity.com/*
+// @grant        None.
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Function to simulate a click on the button
+    function clickCheckButton() {
+        const element = document.querySelector('span#btnCheck');
+        if (element) {
+            const computedStyles = window.getComputedStyle(element);
+            const isVisible = computedStyles['visibility'] === 'visible' && computedStyles['opacity'] !== '0';
+            const isInteractable = computedStyles['pointer-events'] === 'auto';
+            const isClickable = element.onclick !== null || element.hasAttribute('onclick') || element.hasAttribute('data-onclick') || element.hasAttribute('data-click');
+            if (isVisible && isInteractable && isClickable) {
+                element.click();
+                console.log("The button was clicked successfully.");
+            } else {
+                console.log("The button could not be clicked because it is not visible, not interactable, or not clickable.");
+            }
+        } else {
+            console.log("The element does not exist.");
+        }
+    }
+
+    // Call the function to click the button
+    clickCheckButton();
+})();
